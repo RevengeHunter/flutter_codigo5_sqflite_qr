@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_codigo5_sqflite_qr/models/vaccine_card_model.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../general/colors.dart';
 
 class ItemListWidget extends StatelessWidget {
-  const ItemListWidget({
-    Key? key,
-  }) : super(key: key);
+
+  VaccineCardModel vaccineModel;
+  Function onPressed;
+
+  ItemListWidget({
+    required this.vaccineModel,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +60,7 @@ class ItemListWidget extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "Elvis Barrionuevo bfiubfiefuiawbviaeivbasdubgviawvbvjbvbeaeruibviaubvabraieavbiiaavuiavbuu",
+                  vaccineModel.fullName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -62,7 +68,9 @@ class ItemListWidget extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 4.0,),
+                const SizedBox(
+                  height: 4.0,
+                ),
                 Row(
                   children: [
                     SvgPicture.asset(
@@ -83,7 +91,7 @@ class ItemListWidget extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "79865982",
+                  vaccineModel.dni.toString(),
                   style: TextStyle(
                     fontSize: 15.0,
                     fontWeight: FontWeight.w500,
@@ -93,9 +101,9 @@ class ItemListWidget extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: (){onPressed();},
             icon: SvgPicture.asset(
-              'assets/icons/bx-link.svg',
+              'assets/icons/bxs-show.svg',
               color: kFontPrimaryColor,
             ),
           ),

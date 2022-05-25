@@ -20,7 +20,7 @@ class _ScanerQRPageState extends State<ScanerQRPage> {
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
-  bool isURL=false;
+  bool isURL = false;
   String _dataURL = "";
 
   @override
@@ -57,7 +57,7 @@ class _ScanerQRPageState extends State<ScanerQRPage> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        if(result != null){
+        if (result != null) {
           _dataURL = result!.code!;
           isURL = ValidarURL(_dataURL);
         }
@@ -130,10 +130,20 @@ class _ScanerQRPageState extends State<ScanerQRPage> {
                           borderRadius: BorderRadius.circular(14.0),
                         ),
                       ),
-                      onPressed: isURL ? () {
-                        Navigator.pop(context);
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterPage()));
-                      }:null,
+                      onPressed: !isURL
+                          ? () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegisterPage(
+                                    url: //_dataURL,
+                                        "https://www.youtube.com/watch?v=fOoIKnGLaTo&list=RDfOoIKnGLaTo&start_radio=1&ab_channel=DanyR%C3%B8bel",
+                                  ),
+                                ),
+                              );
+                            }
+                          : null,
                       child: Text(
                         "Save Vaccine Card",
                         style: TextStyle(

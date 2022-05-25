@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../general/colors.dart';
@@ -8,15 +9,20 @@ class InputTextFieldWidget extends StatelessWidget {
 
   String txtName;
   String iconPath;
-  // TextEditingController txtController;
+  int? maxLength;
+  TextInputType? textInputType;
+  List<FilteringTextInputFormatter>? inputFormatters;
+  bool isDNI;
+  TextEditingController txtController;
 
-  InputTextFieldWidget({required this.txtName, required this.iconPath});
+  InputTextFieldWidget({required this.txtController,required this.txtName, required this.iconPath, this.maxLength, this.textInputType, this.inputFormatters,required this.isDNI,});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 14.0,),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "$txtName:",
@@ -37,8 +43,17 @@ class InputTextFieldWidget extends StatelessWidget {
                   blurRadius: 12.0,),
               ],
             ),
-            child: TextField(
+            child: TextFormField(
+              controller: txtController,
+              maxLength: isDNI ? 8 : null,
+              keyboardType: isDNI ? TextInputType.number : null,
+              inputFormatters: isDNI ? [
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'[0-9]'),
+                ),
+              ] : [],
               decoration: InputDecoration(
+                counterText: "",
                 filled: true,
                 fillColor: Colors.white,
                 hintText: txtName,
@@ -60,7 +75,27 @@ class InputTextFieldWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.0),
                   borderSide: BorderSide.none,
                 ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: BorderSide.none,
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: BorderSide.none,
+                ),
               ),
+              //Todo lo que se ingresa al campo es el value
+              validator: (value){
+                if(value!.isEmpty){
+                  return "El campo es obligatorio";
+                }
+
+                if(isDNI && value.length < 8){
+                  return "El DNI necesita 8 numeros";
+                }
+
+                return null;
+              },
             ),
           ),
         ],
