@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutter_codigo5_sqflite_qr">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="VaccineApp"
         android:name="${applicationName}"

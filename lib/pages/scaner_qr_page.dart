@@ -130,15 +130,15 @@ class _ScanerQRPageState extends State<ScanerQRPage> {
                           borderRadius: BorderRadius.circular(14.0),
                         ),
                       ),
-                      onPressed: !isURL
+                      onPressed: isURL
                           ? () {
                               Navigator.pop(context);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => RegisterPage(
-                                    url: //_dataURL,
-                                        "https://www.youtube.com/watch?v=fOoIKnGLaTo&list=RDfOoIKnGLaTo&start_radio=1&ab_channel=DanyR%C3%B8bel",
+                                    url: _dataURL,
+                                        //"https://www.youtube.com/watch?v=fOoIKnGLaTo&list=RDfOoIKnGLaTo&start_radio=1&ab_channel=DanyR%C3%B8bel",
                                   ),
                                 ),
                               );
